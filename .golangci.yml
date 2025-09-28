@@ -1,0 +1,198 @@
+run:
+  timeout: 5m
+  tests: true
+  skip-dirs:
+    - vendor
+    - .git
+  skip-files:
+    - ".*\\.pb\\.go$"
+    - ".*\\.pb\\.connect\\.go$"
+
+linters:
+  enable:
+    - gofmt
+    - goimports
+    - govet
+    - errcheck
+    - staticcheck
+    - ineffassign
+    - typecheck
+    - gosimple
+    - gocritic
+    - revive
+    - unparam
+    - misspell
+    - dogsled
+    - nakedret
+    - prealloc
+    - bodyclose
+    - stylecheck
+    - unconvert
+    - dupl
+    - gocyclo
+    - gocognit
+    - godot
+    - godox
+    - goconst
+    - gosec
+    - nestif
+    - gomodguard
+    - whitespace
+    - wsl
+    - testpackage
+    - tparallel
+    - thelper
+    - forbidigo
+    - exhaustive
+    - exportloopref
+    - nilerr
+    - wrapcheck
+    - errorlint
+
+  disable:
+    - gomnd
+    - lll
+    - gochecknoglobals
+    - gochecknoinits
+    - goerr113
+    - exhaustivestruct
+    - forbidigo
+    - funlen
+    - gci
+    - gofumpt
+    - nlreturn
+    - paralleltest
+
+linters-settings:
+  gofmt:
+    simplify: true
+
+  goimports:
+    local-prefixes: github.com/yourusername/sre-skill-up-project
+
+  govet:
+    check-shadowing: true
+    enable-all: true
+
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - experimental
+      - opinionated
+      - performance
+      - style
+
+  revive:
+    severity: warning
+    confidence: 0.8
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: var-naming
+      - name: var-declaration
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: time-naming
+      - name: unexported-return
+      - name: indent-error-flow
+      - name: errorf
+      - name: empty-block
+      - name: superfluous-else
+      - name: unreachable-code
+
+  stylecheck:
+    checks: ["all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022"]
+    dot-import-whitelist:
+      - fmt
+    initialisms: ["ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS", "SIP", "RTP", "AMQP", "DB", "TS"]
+
+  gocyclo:
+    min-complexity: 15
+
+  gocognit:
+    min-complexity: 20
+
+  dupl:
+    threshold: 100
+
+  goconst:
+    min-len: 3
+    min-occurrences: 3
+
+  gosec:
+    severity: medium
+    confidence: medium
+    excludes:
+      - G401
+      - G501
+      - G502
+      - G503
+      - G504
+      - G505
+
+  nestif:
+    min-complexity: 4
+
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: true
+
+  nilerr:
+    # Return nil error after checking error
+    enabled: true
+
+  wrapcheck:
+    ignoreSigs:
+      - .Errorf(
+      - errors.New(
+      - errors.Unwrap(
+      - errors.Join(
+      - .Wrap(
+      - .Wrapf(
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - gocritic
+        - wrapcheck
+
+    - path: cmd/
+      linters:
+        - forbidigo
+        - gochecknoinits
+
+    - linters:
+        - stylecheck
+      text: "ST1000:"
+
+    - linters:
+        - revive
+      text: "exported:"
+
+    - linters:
+        - gosec
+      text: "G104:"
+
+  exclude-use-default: false
+  max-same-issues: 0
+  new: false
+  fix: false

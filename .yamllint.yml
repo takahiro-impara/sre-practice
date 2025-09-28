@@ -1,0 +1,47 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 120
+    level: warning
+
+  comments:
+    min-spaces-from-content: 1
+
+  comments-indentation: enable
+
+  document-start:
+    present: false
+
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 1
+
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+
+  key-duplicates: enable
+
+  new-line-at-end-of-file: enable
+
+  trailing-spaces: enable
+
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: true
+
+ignore: |
+  vendor/
+  .git/
+  *.pb.go
+  *.pb.connect.go
+  node_modules/
+  dist/
+  build/
+  coverage/
+  *.min.yml
+  *.min.yaml
